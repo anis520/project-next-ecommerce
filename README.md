@@ -32,6 +32,14 @@
 
 ###
 
+<h3 align="left">🤳 Features and Activities</h3>
+
+###
+
+<p align="left"><br>- ⚡ user loging ...<br>- ⚡ Admin Dashboard ...<br>- ⚡ Payment gatwaye ...<br>- ⚡ Shops  ..</p>
+
+###
+
 <h3 align="left">🛠 Language and tools</h3>
 
 ###
