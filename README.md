@@ -34,7 +34,6 @@
 
 <h3 align="left">🤳 Features and Activities</h3>
 
-###
 
 <p align="left"><br>- ⚡ user loging ...<br>- ⚡ Admin Dashboard ...<br>- ⚡ Payment gatwaye ...<br>- ⚡ Shops  ..</p>
 
