@@ -1,3 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    background-color: rgba(205, 214, 214, 0.103);
+  }
+}
+
+@layer components {
+  .textPri {
+    @apply text-zinc-800;
+  }
+  .title {
+    @apply bg-black p-4 mb-10 text-4xl  sm:text-8xl font-extrabold text-white text-center;
+  }
+}
+
+@layer utilities {
+  .productOne {
+    width: 100%;
+    background-image: url("../public/product1.webp");
+    background-position: center;
+    background-size: cover;
+  }
+  .productTwo {
+    width: 100%;
+    background-image: url("../public/product2.webp");
+    background-position: center;
+    background-size: cover;
+  }
+  .productThree {
+    width: 100%;
+    background-image: url("../public/product3.webp");
+    background-position: center;
+    background-size: cover;
+  }
+}

@@ -30,6 +30,7 @@ model User{
       stock Int
       price Int
       photo String
+      category String
 
       }
 

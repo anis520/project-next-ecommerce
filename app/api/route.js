@@ -68,10 +68,11 @@ export async function DELETE(req, res) {
     const prisma = new PrismaClient();
     const { searchParams } = new URL(req.url);
     const id = parseInt(searchParams.get("id"));
+    console.log("id");
 
-    const deleteData = await prisma.user.delete({ where: { id } });
+    const deleteData = await prisma.product.delete({ where: { id } });
 
-    return NextResponse.json({ status: true, deleteData });
+    return NextResponse.json({ status: true, result: deleteData });
   } catch (error) {
     return NextResponse.json({ status: false, msg: error.message });
   }

@@ -25,6 +25,7 @@ export async function POST(req, res) {
         photo: data.photo,
         price: parseInt(data.price),
         stock: parseInt(data.stock),
+        category: data.category,
       },
     });
 
@@ -57,7 +58,7 @@ export async function DELETE(req, res) {
     const { searchParams } = new URL(req.url);
     const id = parseInt(searchParams.get("id"));
 
-    const deleteData = await prisma.user.delete({ where: { id } });
+    const deleteData = await prisma.product.delete({ where: { id } });
 
     return NextResponse.json({ status: true, deleteData });
   } catch (error) {

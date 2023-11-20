@@ -8,6 +8,18 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
+CREATE TABLE "Product" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "stock" INTEGER NOT NULL,
+    "price" INTEGER NOT NULL,
+    "photo" TEXT NOT NULL,
+    "category" TEXT NOT NULL,
+
+    CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Profile" (
     "id" SERIAL NOT NULL,
     "fristName" TEXT NOT NULL,

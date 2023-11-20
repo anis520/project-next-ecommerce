@@ -1,7 +1,13 @@
-import { Inter } from "next/font/google";
 import "../globals.css";
 import Link from "next/link";
+import Shopheader from "@/components/shopheader";
 
+import { Inter } from "next/font/google";
+import HeroDiv from "@/components/HeroDiv";
+import Category from "@/components/Category";
+import AllProduct from "@/components/AllProduct";
+import Fotter from "@/components/Fotter";
+import StoreProvider from "@/components/storeProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -12,23 +18,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <h1>shop header</h1>
-
-        <ul className="flex gap-4">
-          <Link href={"/"}>
-            <li>Home</li>
-          </Link>
-          <Link href={"/shop"}>
-            <li>Shop</li>
-          </Link>
-          <Link href={"/admin"}>
-            <li>Admin</li>
-          </Link>
-        </ul>
-
-        {children}
-        <p>shop footer</p>
+      <body className={`pt-16 ${inter.className}`}>
+        <Shopheader />
+        <StoreProvider>{children}</StoreProvider>
+        <Fotter />
       </body>
     </html>
   );
