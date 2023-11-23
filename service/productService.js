@@ -8,7 +8,6 @@ export const createProduct = async (data) => {
   fetch(url + "/product", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json", // Specify content type as JSON
       // Add any other headers if needed
     },
     body: JSON.stringify(data), // Convert data to JSON string

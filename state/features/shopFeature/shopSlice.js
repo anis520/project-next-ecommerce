@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { delteProduct, getAllProduct, searchProduct } from "./shopApiSlice";
+import {
+  delteProduct,
+  getAllProduct,
+  orderGet,
+  searchProduct,
+} from "./shopApiSlice";
 
 //create auth slice
 const shopSlice = createSlice({
@@ -8,6 +13,7 @@ const shopSlice = createSlice({
   initialState: {
     products: null,
     filteredProducts: null,
+    orders: null,
     message: null,
     error: null,
     loading: false,
@@ -48,6 +54,13 @@ const shopSlice = createSlice({
     builder.addCase(searchProduct.fulfilled, (state, action) => {
       (state.filteredProducts = action.payload.data.result),
         (state.loading = false);
+    });
+    // get orders
+    builder.addCase(orderGet.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(orderGet.fulfilled, (state, action) => {
+      (state.orders = action.payload.data.result), (state.loading = false);
     });
   },
 });

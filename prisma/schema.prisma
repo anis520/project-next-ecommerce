@@ -17,7 +17,7 @@ model User{
       email String @unique
       name String
       profile Profile?
-
+      order Order[]
       }
 
 
@@ -31,8 +31,31 @@ model User{
       price Int
       photo String
       category String
-
+      order Order[]
       }
+
+
+
+ 
+ model Order{
+
+      id Int @id @default(autoincrement())
+      userId Int
+      productid Int
+      amount Int
+      count Int
+      status String
+      type String
+      User User @relation(fields: [userId],references: [id],onDelete: Restrict,onUpdate: Cascade)
+      Product Product @relation(fields: [productid],references: [id],onUpdate: Cascade)
+ 
+
+  }
+
+
+
+
+
 
       model Profile{
         id Int @id @default(autoincrement())
@@ -42,3 +65,8 @@ model User{
         userId Int @unique
         User User @relation(fields: [userId],references: [id],onDelete: Restrict,onUpdate: Cascade)
       }
+
+
+
+
+

@@ -1,6 +1,6 @@
 import { getProduct } from "@/service/productService";
 import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { devtools, persist } from "zustand/middleware";
 
 const initialstate = {
   couter: 0,
@@ -10,15 +10,33 @@ const initialstate = {
 };
 
 const useStore = create(
-  devtools((set) => ({
-    ...initialstate,
-  }))
+  persist(
+    devtools((set) => ({
+      ...initialstate,
+    })),
+    { name: "homeshop" }
+  )
 );
 
 export const addCardItem = (data) => {
-  useStore.setState((state) => ({
-    ...state.card.push(data),
-  }));
+  const { card } = useStore.getState();
+  let isIncluded = card.some(
+    (item) => JSON.stringify(item.id) === JSON.stringify(data.id)
+  );
+
+  if (isIncluded) {
+    let inde = card.find((i) => i.id == data.id);
+    useStore.setState((state) => ({
+      ...(state.card[state.card.findIndex((item) => item.id === data.id)] = {
+        ...data,
+        count: inde.count + 1,
+      }),
+    }));
+  } else {
+    useStore.setState((state) => ({
+      ...state.card.push({ ...data, count: 1 }),
+    }));
+  }
 };
 
 export const removeCardItem = (data) => {

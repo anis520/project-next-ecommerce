@@ -101,16 +101,12 @@ const AllProduct = ({ category }) => {
                 </div>
               </div>
               <div className="grid grid-cols-2  font-semibold  ">
-                {card.includes(item) ? (
-                  <button>remove</button>
-                ) : (
-                  <button
-                    onClick={() => handleCard(item)}
-                    className="bg-blue-400 text-white rounded-l-md"
-                  >
-                    Add to card
-                  </button>
-                )}
+                <button
+                  onClick={() => handleCard(item)}
+                  className="bg-blue-400 text-white rounded-l-md"
+                >
+                  Add to card
+                </button>
 
                 <button className="border rounded-r-md">See</button>
               </div>

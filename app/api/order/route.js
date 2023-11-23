@@ -6,7 +6,9 @@ export async function GET(req, res) {
   try {
     const prisma = new PrismaClient();
 
-    let result = await prisma.product.findMany();
+    let result = await prisma.order.findMany({
+      include: { User: true, Product: true },
+    });
 
     return NextResponse.json({ status: true, result });
   } catch (error) {
@@ -20,16 +22,18 @@ export async function POST(req, res) {
 
     const data = await req.json();
     console.log(data);
-    let result = await prisma.product.create({
+    let result = await prisma.order.create({
       data: {
-        name: data.name,
-        photo: data.photo,
-        price: parseInt(data.price),
-        stock: parseInt(data.stock),
-        category: data.category,
+        userId: data.userId,
+        productid: data.productid,
+        amount: parseInt(data.amount),
+        count: parseInt(data.count),
+        status: data.status,
+        type: data.type,
       },
     });
 
+    console.log("heided");
     return NextResponse.json({ status: true, result });
   } catch (error) {
     return NextResponse.json({ status: false, msg: error.message });
@@ -44,7 +48,7 @@ export async function PUT(req, res) {
 
     const data = await req.json();
 
-    const updateData = await prisma.product.update({ where: { id }, data });
+    const updateData = await prisma.user.update({ where: { id }, data });
 
     return NextResponse.json({ status: true, updateData });
   } catch (error) {

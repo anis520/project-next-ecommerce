@@ -10,6 +10,7 @@ import { FaCartArrowDown, FaMessage, FaRegMessage } from "react-icons/fa6";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import useStore, { removeCardItem } from "@/state/store";
+import Image from "next/image";
 
 const Shopheader = () => {
   const [cardDiv, setcardDiv] = useState(false);
@@ -29,9 +30,14 @@ const Shopheader = () => {
     setSearchText("");
   };
 
+  useEffect(() => {
+    setSearchDiv(false);
+    setcardDiv(false);
+  }, [path]);
+
   return (
     <>
-      <div className="fixed top-0 left-0 flex items-center  w-full px-5 md:px-10 py-2 md:py-4 shadow-md   bg-white  z-20">
+      <div className="fixed top-0 left-0 flex items-center  w-full px-5 md:px-10 py-2 md:py-4 shadow-md   bg-white  z-30">
         {/* logo  */}
         <Link href={"/"}>
           <p
@@ -120,22 +126,40 @@ const Shopheader = () => {
           <hr />
 
           {card.length < 1 && <p>no items</p>}
-          {card?.map((item) => {
-            return (
-              <div key={item.id}>
-                <p>{item.name}</p>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => handleCardRemove(item)}
-                    className="border px-2"
-                  >
-                    Remove
-                  </button>
-                  <button className="border px-2">Checkout</button>
+          <div className="divide-y-2 space-y-2">
+            {card?.map((item) => {
+              return (
+                <div key={item.id} className="space-y-2  pt-2">
+                  <div className="flex gap-2 items-center flex-wrap">
+                    <span>
+                      <Image
+                        src={item.photo}
+                        width={40}
+                        height={40}
+                        alt={item.name}
+                      />
+                    </span>
+                    {item.name}
+                    <span className="bg-indigo-400   px-2 rounded-md text-white">
+                      {item.count}
+                    </span>
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleCardRemove(item)}
+                      className="border px-2"
+                    >
+                      Remove
+                    </button>
+                    <button className="border px-2">
+                      <Link href={`/checkout?id=${item.id}`}>Checkout</Link>
+                    </button>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+
           <button
             onClick={() => setcardDiv(false)}
             className="bg-red-500 text-white w-full rounded-md"
