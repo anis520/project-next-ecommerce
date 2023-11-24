@@ -1,11 +1,14 @@
 "use client";
 import { login } from "@/state/features/shopFeature/shopApiSlice";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { AiOutlineLogin } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
+  const router = useRouter();
+
   const [input, setinput] = useState({ email: "", password: "" });
   const dispatch = useDispatch();
 
@@ -15,9 +18,13 @@ const Login = () => {
       [e.target.name]: e.target.value,
     }));
   };
-
+  const reloadAndReplaceURL = () => {
+    router.refresh();
+    router.refresh();
+  };
   const handleLogin = async () => {
     dispatch(login(input));
+    reloadAndReplaceURL();
   };
 
   return (

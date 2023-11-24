@@ -32,3 +32,17 @@ export const checkCookieUser = async (req) => {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 };
+export const checkCookieauth = async (req) => {
+  try {
+    let token = req.cookies.get("token");
+    let payload = await verifyToken(token["value"]);
+    const requestHeaders = new Headers(req.headers);
+    requestHeaders.set("email", payload["email"]);
+
+    if (payload["role"] == "user" || payload["role"] == "admin") {
+      return NextResponse.redirect(new URL("/account", req.url));
+    }
+  } catch (error) {
+    return NextResponse.next();
+  }
+};

@@ -8,26 +8,41 @@ import { MdDeliveryDining, MdRecommend } from "react-icons/md";
 import orderphoto from "@/public/download.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getShopState } from "@/state/features/shopFeature/shopSlice";
-import { orderGet } from "@/state/features/shopFeature/shopApiSlice";
+import { logout, orderGet } from "@/state/features/shopFeature/shopApiSlice";
+import { useRouter } from "next/navigation";
 
 const Accout = () => {
   const { orders } = useSelector(getShopState);
-
+  const router = useRouter();
   const dispatch = useDispatch();
 
   console.log(orders);
+  const reloadAndReplaceURL = () => {
+    router.push("/"); // Replace the URL
+    router.refresh();
+  };
+  const logoutHandaler = () => {
+    dispatch(logout());
+    reloadAndReplaceURL();
+  };
 
   useEffect(() => {
     dispatch(orderGet());
   }, []);
 
   return (
-    <div className="px-5 md:px-10">
+    <div className="px-5 md:px-10 mt-10">
       <Link href={"/admin"}>
         <button className="bg-indigo-400 mt-4 text-white font-semibold rounded-md mb-5 p-2">
           Go to Admin panel
         </button>
       </Link>
+      <button
+        onClick={logoutHandaler}
+        className="bg-red-400 mt-4 text-white font-semibold rounded-md mb-5 p-2"
+      >
+        logout
+      </button>
 
       {/* order status  */}
       <div>

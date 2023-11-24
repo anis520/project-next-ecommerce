@@ -19,10 +19,6 @@ export default function Home() {
     dispatch(delteProduct(id));
   };
 
-  useEffect(() => {
-    dispatch(getAllProduct());
-  }, []);
-
   return (
     <div className="">
       <h1 className="">All products</h1>

@@ -10,7 +10,6 @@ export default async function Home() {
     <div className=" ">
       <HeroDiv />
       <Category />
-      <AllProduct />
     </div>
   );
 }

@@ -6,9 +6,14 @@ import { getProduct } from "@/service/productService";
 import useStore, { addCardItem } from "@/state/store";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProduct } from "@/state/features/shopFeature/shopApiSlice";
-import { getShopState } from "@/state/features/shopFeature/shopSlice";
+import {
+  getShopState,
+  setProductByCategory,
+} from "@/state/features/shopFeature/shopSlice";
+import { usePathname } from "next/navigation";
 
 const AllProduct = ({ category }) => {
+  const path = usePathname();
   const dispatch = useDispatch();
   const { products, filteredProducts } = useSelector((state) => state.shop);
   const { card } = useStore();
@@ -18,8 +23,8 @@ const AllProduct = ({ category }) => {
   };
 
   useEffect(() => {
-    dispatch(getAllProduct());
-  }, []);
+    dispatch(setProductByCategory("all"));
+  }, [path]);
 
   return (
     <div className="px-10 py-5 bg-indigo-50">
