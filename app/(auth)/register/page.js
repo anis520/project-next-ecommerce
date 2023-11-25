@@ -1,5 +1,5 @@
 "use client";
-import { login } from "@/state/features/shopFeature/shopApiSlice";
+import { login, register } from "@/state/features/shopFeature/shopApiSlice";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 const Register = () => {
   const router = useRouter();
 
-  const [input, setinput] = useState({ email: "", password: "" });
+  const [input, setinput] = useState({ email: "", name: "", password: "" });
   const dispatch = useDispatch();
 
   const handleInput = (e) => {
@@ -22,9 +22,9 @@ const Register = () => {
     router.refresh();
     router.refresh();
   };
-  const handleLogin = async () => {
-    dispatch(login(input));
-    reloadAndReplaceURL();
+  const handleRegister = async () => {
+    dispatch(register(input));
+    router.replace("/login");
   };
 
   return (
@@ -38,6 +38,17 @@ const Register = () => {
         </p>{" "}
         <hr className="w-full h-2 bg-indigo-400 rounded-md" />
         <div className="space-y-3 py-3">
+          <label className="font-semibold text-slate-500 " htmlFor="name">
+            Enter name :
+          </label>
+          <input
+            onChange={handleInput}
+            value={input.name}
+            className="w-full border outline-slate-300 p-1 rounded-md"
+            type="text"
+            name="name"
+            id="name"
+          />{" "}
           <label className="font-semibold text-slate-500" htmlFor="email">
             Enter email :
           </label>
@@ -49,20 +60,19 @@ const Register = () => {
             name="email"
             id="email"
           />
-
-          <label className="font-semibold text-slate-500 " htmlFor="password">
+          <label className="font-semibold text-slate-500" htmlFor="password">
             Enter password :
           </label>
           <input
             onChange={handleInput}
+            className="w-full border outline-slate-300 p-1 rounded-md "
             value={input.password}
-            className="w-full border outline-slate-300 p-1 rounded-md"
             type="password"
             name="password"
             id="password"
           />
           <button
-            onClick={handleLogin}
+            onClick={handleRegister}
             className="w-full p-2 text-white bg-indigo-400 rounded-xl  font-semibold"
           >
             Register

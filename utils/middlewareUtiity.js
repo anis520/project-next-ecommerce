@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { verifyToken } from "./jwtHelper";
+import { toast } from "react-toastify";
 
 export const checkCookieAdmin = async (req) => {
   try {
@@ -7,6 +8,7 @@ export const checkCookieAdmin = async (req) => {
     let payload = await verifyToken(token["value"]);
     const requestHeaders = new Headers(req.headers);
     requestHeaders.set("email", payload["email"]);
+    requestHeaders.set("role", payload["role"]);
 
     if (payload["role"] == "admin") {
       return NextResponse.next({ request: { headers: requestHeaders } });
@@ -24,6 +26,7 @@ export const checkCookieUser = async (req) => {
     let payload = await verifyToken(token["value"]);
     const requestHeaders = new Headers(req.headers);
     requestHeaders.set("email", payload["email"]);
+    requestHeaders.set("role", payload["role"]);
 
     if (payload["role"] == "user" || payload["role"] == "admin") {
       return NextResponse.next({ request: { headers: requestHeaders } });
@@ -38,6 +41,7 @@ export const checkCookieauth = async (req) => {
     let payload = await verifyToken(token["value"]);
     const requestHeaders = new Headers(req.headers);
     requestHeaders.set("email", payload["email"]);
+    requestHeaders.set("role", payload["role"]);
 
     if (payload["role"] == "user" || payload["role"] == "admin") {
       return NextResponse.redirect(new URL("/account", req.url));

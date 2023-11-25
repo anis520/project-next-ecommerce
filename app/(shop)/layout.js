@@ -18,8 +18,7 @@ export default function RootLayout({ children }) {
     <>
       <Shopheader />
       {children}
-      <AllProduct />
-      <Fotter />
+       <Fotter />
     </>
   );
 }

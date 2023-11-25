@@ -1,5 +1,4 @@
 import { Inter } from "next/font/google";
-import "../../globals.css";
 import Link from "next/link";
 import StoreProvider from "@/components/storeProvider";
 

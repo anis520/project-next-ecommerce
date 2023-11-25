@@ -1,12 +1,18 @@
 "use client";
 import { login } from "@/state/features/shopFeature/shopApiSlice";
+import { setMessageEmpty } from "@/state/features/shopFeature/shopSlice";
+import Image from "next/image";
 import Link from "next/link";
+import gifloading from "@/public/roket.gif";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { AiOutlineLogin } from "react-icons/ai";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const { error, message, loading } = useSelector((state) => state.shop);
+  console.log({ error, message });
   const router = useRouter();
 
   const [input, setinput] = useState({ email: "", password: "" });
@@ -18,17 +24,37 @@ const Login = () => {
       [e.target.name]: e.target.value,
     }));
   };
-  const reloadAndReplaceURL = () => {
-    router.refresh();
-    router.refresh();
-  };
+
   const handleLogin = async () => {
     dispatch(login(input));
-    reloadAndReplaceURL();
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(setMessageEmpty());
+    }
+    if (message) {
+      toast.success(message);
+      dispatch(setMessageEmpty());
+      router.refresh();
+    }
+  }, [error, message]);
 
   return (
     <div className="w-screen h-screen flex items-center justify-center bg-indigo-200">
+      {loading && (
+        <div className="fixed top-0 left-0 w-full h-full flex  items-start mt-5  justify-center">
+          <Image
+            src={gifloading}
+            width={140}
+            height={140}
+            alt="loading"
+            className="rounded-md"
+          />
+        </div>
+      )}
+
       <div className="bg-white p-5   w-10/12 sm:w-7/12 md:w-4/12   rounded-xl shadow-lg hover:scale-105 duration-300 ">
         <p className="text-slate-500 font-semibold text-xl mb-2 flex items-center gap-3">
           <span>Login </span>

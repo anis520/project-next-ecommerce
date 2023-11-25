@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   delteProduct,
   getAllProduct,
+  login,
   orderGet,
   searchProduct,
 } from "./shopApiSlice";
@@ -11,6 +12,7 @@ const shopSlice = createSlice({
   name: "shop",
 
   initialState: {
+    user: null,
     products: null,
     filteredProducts: null,
     orders: null,
@@ -61,6 +63,18 @@ const shopSlice = createSlice({
     });
     builder.addCase(orderGet.fulfilled, (state, action) => {
       (state.orders = action.payload.data.result), (state.loading = false);
+    });
+    // /    get login
+    builder.addCase(login.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(login.fulfilled, (state, action) => {
+      (state.message = action.payload.data.message),
+        (state.user = action.payload.data.user),
+        (state.loading = false);
+    });
+    builder.addCase(login.rejected, (state, action) => {
+      (state.error = action.error.message), (state.loading = false);
     });
   },
 });

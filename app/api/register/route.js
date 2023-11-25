@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt";
 
 //get
 export async function GET(req, res) {
@@ -19,21 +20,26 @@ export async function POST(req, res) {
     const prisma = new PrismaClient();
 
     const data = await req.json();
-    let result = await prisma.product.create({
+
+    const makehash = await bcrypt.hash(data.password, 10);
+
+    let result = await prisma.user.create({
       data: {
         name: data.name,
-        photo: data.photo,
-        price: parseInt(data.price),
-        stock: parseInt(data.stock),
-        category: data.category,
+        email: data.email,
+        password: makehash,
       },
     });
 
-    return NextResponse.json({ status: true, result });
+    return NextResponse.json({
+      status: true,
+      user: result,
+    });
   } catch (error) {
     return NextResponse.json({ status: false, msg: error.message });
   }
 }
+
 //put
 export async function PUT(req, res) {
   try {

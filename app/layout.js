@@ -8,6 +8,7 @@ import Category from "@/components/Category";
 import AllProduct from "@/components/AllProduct";
 import Fotter from "@/components/Fotter";
 import StoreProvider from "@/components/storeProvider";
+import AdminAccess from "@/components/AdminAccess";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {

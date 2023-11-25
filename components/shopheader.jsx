@@ -58,6 +58,7 @@ const Shopheader = () => {
               Shop
             </li>
           </Link>
+
           <li className="px-2 hover:bg-gray-100 duration-300 cursor-pointer rounded-md">
             About
           </li>

@@ -86,10 +86,23 @@ export const login = createAsyncThunk("shop/login", async (data) => {
     throw new Error(error.response.data.message);
   }
 });
+
 // log out
 export const logout = createAsyncThunk("shop/logout", async (data) => {
   try {
     const response = await axios.get(`http://localhost:3000/api/login`);
+    return response;
+  } catch (error) {
+    throw new Error(error.response.data.msg);
+  }
+});
+// register user
+export const register = createAsyncThunk("shop/register", async (data) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:3000/api/register`,
+      data
+    );
     return response;
   } catch (error) {
     throw new Error(error.response.data.message);
