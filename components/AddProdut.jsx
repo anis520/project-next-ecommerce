@@ -96,8 +96,15 @@ const AddProdut = () => {
         value={input.category}
         onChange={handleInputChange}
         type="text"
+        list="cat"
         className="w-4/12"
       />
+      <datalist id="cat">
+        <option value="food" />
+        <option value="meats" />
+        <option value="fruit" />
+        <option value="breakfast" />
+      </datalist>
       <button
         className="block bg-blue-500 text-white p-2 rounded-md w-4/12"
         onClick={handlesave}

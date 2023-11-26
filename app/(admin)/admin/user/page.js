@@ -5,41 +5,50 @@ import {
   delteProduct,
   getAllProduct,
   getAllUsers,
+  updateUser,
 } from "@/state/features/shopFeature/shopApiSlice";
+import cn from "@/utils/cn";
 import { PrismaClient } from "@prisma/client";
 import Image from "next/image";
 import { useEffect } from "react";
 import { Md10K, MdDelete, MdEdit } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function Amin() {
-  const { products } = useSelector((state) => state.shop);
+export default function User() {
+  const { users } = useSelector((state) => state.shop);
   const dispatch = useDispatch();
 
   const handleDelte = (id) => {
     dispatch(delteProduct(id));
   };
 
+  const handleUpdate = (data) => {
+    dispatch(updateUser(data));
+  };
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
 
   return (
     <div className="">
-      <h1 className="">All products</h1>
+      <h1 className="">All users</h1>
       <hr />
       <table class="table-auto w-full">
         <thead>
           <tr className="  flex   text-start py-2">
-            <th className="w-5/12  text-start ">Name</th>
+            <th className="w-4/12  text-start ">Name</th>
             <th className="w-2/12  text-start">Image</th>
-            <th className="w-2/12 text-start">Stock</th>
-            <th className="w-2/12 text-start">Stock</th>
+            <th className="w-3/12 text-start">email</th>
+            <th className="w-2/12 text-start">role</th>
             <th className="w-1/12 text-start">Action</th>
           </tr>
         </thead>
         <tbody>
-          {products?.map((item) => {
+          {users?.map((item) => {
             return (
               <tr key={item.id} className="  flex  mb-2  items-center">
-                <td className="w-5/12   ">{item.name}</td>
+                <td className="w-4/12   ">{item.name}</td>
                 <td className="w-2/12">
                   <Image
                     width={80}
@@ -53,8 +62,41 @@ export default function Amin() {
                     className="object-cover"
                   />
                 </td>
-                <td className="w-2/12">{item.price}</td>
-                <td className="w-2/12">{item.stock}</td>
+                <td className="w-3/12">{item.email}</td>
+                <td className="w-2/12">
+                  <button
+                    onClick={() =>
+                      handleUpdate({
+                        role: item.role == "admin" ? "user" : "admin",
+                        id: item.id,
+                      })
+                    }
+                    className="rounded-md overflow-hidden"
+                  >
+                    <span
+                      className={cn(
+                        "text-white p-2 text-xs  bg-slate-400  duration-200 ",
+                        {
+                          " bg-green-400 font-semibold  p-1 text-lg":
+                            item.role == "admin",
+                        }
+                      )}
+                    >
+                      Admin
+                    </span>
+                    <span
+                      className={cn(
+                        "text-white p-2 text-xs  bg-slate-400 duration-200 ",
+                        {
+                          " bg-green-400 font-semibold p-1  text-lg":
+                            item.role == "user",
+                        }
+                      )}
+                    >
+                      User
+                    </span>
+                  </button>
+                </td>
                 <td className="w-1/12 flex gap-2">
                   <MdEdit className="bg-indigo-400 text-white text-3xl p-1 rounded-full hover:scale-110 duration-300 cursor-pointer " />
                   <MdDelete

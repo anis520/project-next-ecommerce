@@ -7,8 +7,8 @@ import {
 const adminPaths = ["/admin/product/add", "/admin"];
 const userPaths = ["/account"];
 const authPaths = ["/login", "/register"];
-export const middleware = (req) => {
-  //   console.log(req.nextUrl.pathname.startWit);
+
+export const middleware = async (req) => {
   if (adminPaths.includes(req.nextUrl.pathname)) {
     return checkCookieAdmin(req);
   }

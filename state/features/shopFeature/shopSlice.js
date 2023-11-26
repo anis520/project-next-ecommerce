@@ -2,9 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   delteProduct,
   getAllProduct,
+  getAllUsers,
   login,
   orderGet,
   searchProduct,
+  updateUser,
 } from "./shopApiSlice";
 
 //create auth slice
@@ -19,6 +21,7 @@ const shopSlice = createSlice({
     message: null,
     error: null,
     loading: false,
+    users: null,
   },
   reducers: {
     setMessageEmpty: (state) => {
@@ -74,6 +77,34 @@ const shopSlice = createSlice({
         (state.loading = false);
     });
     builder.addCase(login.rejected, (state, action) => {
+      (state.error = action.error.message), (state.loading = false);
+    });
+    // /    get getAllUsers
+    builder.addCase(getAllUsers.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(getAllUsers.fulfilled, (state, action) => {
+      (state.message = action.payload.data.message),
+        (state.users = action.payload.data.result),
+        (state.loading = false);
+    });
+    builder.addCase(getAllUsers.rejected, (state, action) => {
+      (state.error = action.error.message), (state.loading = false);
+    });
+    // /    update User
+    builder.addCase(updateUser.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(updateUser.fulfilled, (state, action) => {
+      (state.message = action.payload.data.message),
+        (state.users[
+          state.users.findIndex(
+            (data) => data.id == action.payload.data.result.id
+          )
+        ] = action.payload.data.result),
+        (state.loading = false);
+    });
+    builder.addCase(updateUser.rejected, (state, action) => {
       (state.error = action.error.message), (state.loading = false);
     });
   },

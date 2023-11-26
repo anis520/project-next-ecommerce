@@ -9,7 +9,7 @@ export const checkCookieAdmin = async (req) => {
     const requestHeaders = new Headers(req.headers);
     requestHeaders.set("email", payload["email"]);
     requestHeaders.set("role", payload["role"]);
-
+    console.log(req.alluser);
     if (payload["role"] == "admin") {
       return NextResponse.next({ request: { headers: requestHeaders } });
     } else {

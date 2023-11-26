@@ -31,6 +31,11 @@ export default function RootLayout({ children }) {
             Add
           </li>
         </Link>
+        <Link href={"/admin/user"}>
+          <li className="bg-indigo-400 text-white px-2 rounded-md w-fit ">
+            users
+          </li>
+        </Link>
       </ul>
 
       <div className="px-10">{children}</div>

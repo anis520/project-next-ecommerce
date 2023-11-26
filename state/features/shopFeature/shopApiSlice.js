@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const url = "https://project-next-ecommerce.vercel.app/api";
+// const url = "https://project-next-ecommerce.vercel.app/api";
+const url = "http://localhost:3000/api";
 
 // add new product
 export const addProduct = createAsyncThunk("shop/addProduct", async (data) => {
@@ -30,9 +31,7 @@ export const delteProduct = createAsyncThunk(
   "shop/delteProduct",
   async (id) => {
     try {
-      const response = await axios.delete(
-        `${url}http://localhost:3000/api/product?id=${id}`
-      );
+      const response = await axios.delete(`${url}/product?id=${id}`);
 
       return response;
     } catch (error) {
@@ -96,6 +95,24 @@ export const logout = createAsyncThunk("shop/logout", async (data) => {
 export const register = createAsyncThunk("shop/register", async (data) => {
   try {
     const response = await axios.post(`${url}/register`, data);
+    return response;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+});
+// get all user
+export const getAllUsers = createAsyncThunk("shop/getAllUsers", async () => {
+  try {
+    const response = await axios.get(`${url}/user`);
+    return response;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+});
+// update single user
+export const updateUser = createAsyncThunk("shop/updateUser", async (data) => {
+  try {
+    const response = await axios.put(`${url}/user?id=${data.id}`, data);
     return response;
   } catch (error) {
     throw new Error(error.response.data.message);
