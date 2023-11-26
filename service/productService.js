@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import axios from "axios";
 
-const url = "http://localhost:3000/api";
+const url = "https://project-next-ecommerce.vercel.app/api";
 
 export const createProduct = async (data) => {
   // Make the POST request

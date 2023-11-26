@@ -1,14 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+const url = "https://project-next-ecommerce.vercel.app/api";
 
 // add new product
 export const addProduct = createAsyncThunk("shop/addProduct", async (data) => {
   console.log(data);
   try {
-    const response = await axios.post(
-      `http://localhost:3000/api/product`,
-      data
-    );
+    const response = await axios.post(`${url}/product`, data);
     return response;
   } catch (error) {
     throw new Error(error.response.data.message);
@@ -20,7 +18,7 @@ export const getAllProduct = createAsyncThunk(
   "shop/getAllProduct",
   async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/product`);
+      const response = await axios.get(`${url}/product`);
       return response;
     } catch (error) {
       throw new Error(error.response.data.message);
@@ -33,7 +31,7 @@ export const delteProduct = createAsyncThunk(
   async (id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:3000/api/product?id=${id}`
+        `${url}http://localhost:3000/api/product?id=${id}`
       );
 
       return response;
@@ -47,9 +45,7 @@ export const searchProduct = createAsyncThunk(
   "shop/searchProduct",
   async (name) => {
     try {
-      const response = await axios.get(
-        `http://localhost:3000/api/product/search?name=${name}`
-      );
+      const response = await axios.get(`${url}/product/search?name=${name}`);
 
       return response;
     } catch (error) {
@@ -60,7 +56,7 @@ export const searchProduct = createAsyncThunk(
 // orders get
 export const orderGet = createAsyncThunk("shop/orderGet", async () => {
   try {
-    const response = await axios.get(`http://localhost:3000/api/order`);
+    const response = await axios.get(`${url}/order`);
 
     return response;
   } catch (error) {
@@ -69,7 +65,7 @@ export const orderGet = createAsyncThunk("shop/orderGet", async () => {
 });
 export const orderPlace = createAsyncThunk("shop/orderPlace", async (data) => {
   try {
-    const response = await axios.post(`http://localhost:3000/api/order`, data);
+    const response = await axios.post(`${url}/order`, data);
 
     return response;
   } catch (error) {
@@ -80,7 +76,7 @@ export const orderPlace = createAsyncThunk("shop/orderPlace", async (data) => {
 // login
 export const login = createAsyncThunk("shop/login", async (data) => {
   try {
-    const response = await axios.post(`http://localhost:3000/api/login`, data);
+    const response = await axios.post(`${url}/login`, data);
     return response;
   } catch (error) {
     throw new Error(error.response.data.message);
@@ -90,7 +86,7 @@ export const login = createAsyncThunk("shop/login", async (data) => {
 // log out
 export const logout = createAsyncThunk("shop/logout", async (data) => {
   try {
-    const response = await axios.get(`http://localhost:3000/api/login`);
+    const response = await axios.get(`${url}/login`);
     return response;
   } catch (error) {
     throw new Error(error.response.data.msg);
@@ -99,10 +95,7 @@ export const logout = createAsyncThunk("shop/logout", async (data) => {
 // register user
 export const register = createAsyncThunk("shop/register", async (data) => {
   try {
-    const response = await axios.post(
-      `http://localhost:3000/api/register`,
-      data
-    );
+    const response = await axios.post(`${url}/register`, data);
     return response;
   } catch (error) {
     throw new Error(error.response.data.message);

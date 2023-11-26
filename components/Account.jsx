@@ -37,9 +37,8 @@ const Account = ({ email }) => {
         className="bg-red-400 mt-4 text-white font-semibold rounded-md mb-5 p-2"
       >
         logout
-        {email}
       </button>
-
+      <p className="p-10 text-2xl font-semibold">user email : {email}</p>
       {/* order status  */}
       <div>
         <p className="font-semibold text-xl text-zinc-700">
