@@ -27,7 +27,7 @@ const Account = ({ email }) => {
 
   useEffect(() => {
     dispatch(orderGet());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="px-5 md:px-10 mt-10">
